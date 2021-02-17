@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.SocketException;
 import java.util.Optional;
 
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.commons.net.ftp.FTP;
@@ -55,6 +56,7 @@ public class Main extends Application {
 	        VistaPrincipal_C Controller = loader.getController();
 	        
 	        primaryStage.show();
+	        
 	}
 	
 	
@@ -81,7 +83,19 @@ public class Main extends Application {
 	
 
 	public void PreparativosInicio() throws IOException {
+		
 		controlador.getConnection_button().setDisable(true);
+		controlador.getDeletefile_button().setDisable(false);
+		controlador.getDeletefolder_button().setDisable(false);
+		controlador.getDownfile_button().setDisable(false);
+		controlador.getConnection_button().setDisable(false);
+		controlador.getNewfolder_button().setDisable(false);
+		controlador.getAcceder_button().setDisable(false);
+
+
+
+
+
 		controlador.getMaindirectory_id().setText(cliente.printWorkingDirectory());
 		mostrarTextArea(cliente.printWorkingDirectory());
 	}
@@ -225,28 +239,29 @@ public class Main extends Application {
 
 	}
 	
-	public void descargarArchivo() throws IOException {
-		DirectoryChooser directoryChooser = new DirectoryChooser();
-		directoryChooser.setTitle("Open Resource File");
-		cliente.setFileType(FTP.BINARY_FILE_TYPE);
-		File archivo = directoryChooser.showDialog(LoginStage);
-		String ruta = archivo.getAbsolutePath();
-		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(archivo.getAbsoluteFile()));
-		if(cliente.retrieveFile(archivo.getName(), out)){
-			Alert alert = new Alert(AlertType.INFORMATION);
-	    	alert.setTitle("Archivo Descargado");
-	    	alert.setContentText("El archivo "+archivo.getName()+" ha sido descargado correctamente");
-	    	alert.showAndWait();
-			
-		}
-		mostrarTextArea("/");
-
+	
+	public void descargarArchivo() throws IOException{
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Resource File");
+		fileChooser.setTitle("Bajar archivo");
+		fileChooser.setInitialFileName(controlador.getAcceder_id().getText());
+	    File selec = fileChooser.showSaveDialog(null);
+	    if(selec != null) {
+	        try {
+	            if(cliente.retrieveFile(controlador.getAcceder_id().getText(), new FileOutputStream(selec.getAbsolutePath()))) {
+	                JOptionPane.showMessageDialog(null, "Descargado");
+	            }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }else {
+	        JOptionPane.showMessageDialog(null, "sin archivo seleccionado");
+	    }
 	}
-
 	public void CerrarTodo() {
 		try {
 			cliente.disconnect();
-			LoginStage.close();
+			System.exit(0);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

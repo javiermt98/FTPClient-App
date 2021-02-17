@@ -25,6 +25,8 @@ public class VistaPrincipal_C {
 	@FXML
 	private TextField acceder_id;
 	@FXML
+	private Button acceder_button;
+	@FXML
 	private PasswordField pwd_id;
 	@FXML
 	private TextArea textarea_id;
@@ -51,6 +53,7 @@ public class VistaPrincipal_C {
 	public Main modelo;
 	public VistaPrincipal_C() {
 		
+		
 	}
 	
 	public void Connection() throws IOException {
@@ -66,7 +69,7 @@ public class VistaPrincipal_C {
 	}
 	
 	public void Salir() {
-		Main modelo = new Main();
+		
 		modelo.CerrarTodo();
 	}
 	
@@ -90,6 +93,15 @@ public class VistaPrincipal_C {
 		modelo.descargarArchivo();
 	}
 	
+	
+	public Button getAcceder_button() {
+		return acceder_button;
+	}
+
+	public void setAcceder_button(Button acceder_button) {
+		this.acceder_button = acceder_button;
+	}
+
 	public TextField getFtpserver_id() {
 		return ftpserver_id;
 	}
