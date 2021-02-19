@@ -91,6 +91,7 @@ public class Main extends Application {
 		controlador.getConnection_button().setDisable(false);
 		controlador.getNewfolder_button().setDisable(false);
 		controlador.getAcceder_button().setDisable(false);
+		controlador.getTextarea_id().setEditable(false);
 
 
 
@@ -162,7 +163,7 @@ public class Main extends Application {
 		    if(cliente.removeDirectory(result.get())) {
 		    	Alert alert = new Alert(AlertType.CONFIRMATION);
 		    	alert.setTitle("Borrando");
-		    	alert.setContentText("¿Quieres borrar "+result.get()+" ?");
+		    	alert.setContentText("Â¿Quieres borrar "+result.get()+" ?");
 		    	Optional<ButtonType> resultdelete = alert.showAndWait();
 		    	if (resultdelete.get() == ButtonType.OK){
 		    	} else {
@@ -196,7 +197,7 @@ public class Main extends Application {
 		    if(cliente.deleteFile(result.get())) {
 		    	Alert alert = new Alert(AlertType.CONFIRMATION);
 		    	alert.setTitle("Borrando");
-		    	alert.setContentText("¿Quieres borrar "+result.get()+" ?");
+		    	alert.setContentText("Â¿Quieres borrar "+result.get()+" ?");
 		    	Optional<ButtonType> resultdelete = alert.showAndWait();
 		    	if (resultdelete.get() == ButtonType.OK){
 		    	} else {
